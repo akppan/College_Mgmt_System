@@ -13,6 +13,9 @@ async function student_schedule(studentId){
         // const cursor = await coll.find(query).project(projection);
         out = await cursor.toArray();
         student = out[0]
+        if(typeof student==='undefined'){
+            return "No Such student is present"
+        }
         if("class_id" in student){
             const coll1 = await database.collection('classes');
             const query1 = {_id:student["class_id"]};
@@ -41,6 +44,9 @@ async function teacher_schedule(teacherId){
         const cursor = await coll.find(query);
         out = await cursor.toArray();
         teacher1 = out[0]
+        if(typeof teacher1==='undefined'){
+            return "No Such teacher is present"
+        }
         if ("subject" in teacher1){
             const subjectId = teacher1["subject"]
             // var schedule = []
