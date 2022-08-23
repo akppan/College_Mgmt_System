@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const {student,teacher} = require("./api/lists");
+const {add_class} = require("./api/update");
 
 const app = express();
 
@@ -23,6 +24,22 @@ app.get('/students', async function (req, res, next) {
     console.log(students);
     res.send(students);
 })
+
+app.put('/enroll/:studentId/:courseId', async function(req,res,next){
+    sId = await req.params.studentId;
+    cId = await req.params.courseId;
+    // console.log(sId,cId);
+    await add_class(sId,cId);
+    res.send("Student with ID "+ sId +" has enrolled for course with Id "+cId);
+})
+
+
+
+
+
+
+
+
 
 
 PORT = 8080;
