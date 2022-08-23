@@ -29,16 +29,26 @@ app.get('/students', async function (req, res, next) {
 app.put('/enroll/:studentId/:courseId', async function(req,res,next){
     sId = await req.params.studentId;
     cId = await req.params.courseId;
-    await add_class(sId,cId);
-    res.send("Student with ID "+ sId +" has enrolled for course with Id "+cId);
+    out = await add_class(sId,cId);
+    if (out=="OK"){
+        res.send("Student with ID "+ sId +" has enrolled for course with Id "+cId);
+    }else{
+        res.send(out)
+    }
+    
 })
 
 
 app.put('/assign/:teacherId/:subjectId', async function(req,res,next){
     tId = await req.params.teacherId;
     sId = await req.params.subjectId;
-    await add_teacher(tId,sId);
-    res.send("Teacher with ID "+ tId +" has been added for subject with Id "+sId);
+    out = await add_teacher(tId,sId);
+    if (out == "OK"){
+        res.send("Teacher with ID "+ tId +" has been added for subject with Id "+sId);
+    }else{
+        res.send(out)
+    }
+    
 })
 
 
