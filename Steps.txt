@@ -1,0 +1,94 @@
+Insert the below data into teachers collection: Use "http://localhost:8080/teachers" api to retrieve the list of teachers.
+
+db.teachers.insertMany(
+[{_id:"T1",name:"Amrita"},
+{_id:"T2",name:"Bob"},
+{_id:"T3",name:"Sunil"},
+{_id:"T4",name:"Babita"},
+{_id:"T5",name:"Ramesh"},
+{_id:"T6",name:"Mahima"},
+{_id:"T7",name:"Angelina"}])
+
+
+
+Insert the below data into students collection: Use "http://localhost:8080/students" api to retrieve the list of students.
+
+db.students.insertMany(
+[{_id:"S1",name:"John"},
+{_id:"S2",name:"Jane"},
+{_id:"S3",name:"Sarah"},
+{_id:"S4",name:"Frank"},
+{_id:"S5",name:"Mike"},
+{_id:"S6",name:"Jennifer"},
+{_id:"S7",name:"Jessica"},
+{_id:"S8",name:"Fred"},
+{_id:"S9",name:"Bob"},
+{_id:"S10",name:"Doe"},
+{_id:"S11",name:"Smith"},
+{_id:"S12",name:"Thomas"},
+{_id:"S13",name:"Brown"},
+{_id:"S14",name:"Davis"},
+{_id:"S15",name:"Wilson"},
+{_id:"S16",name:"Garcia"},
+{_id:"S17",name:"Clark"},
+{_id:"S18",name:"Lopez"}])
+
+
+
+
+Add the below data to the Courses collection:
+
+db.courses.insertMany(
+[{_id:"Course1",courseName:"Computer Science", periods: ["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6"],added:false},
+{_id:"Course2",courseName:"Electrical Technology", periods: ["Sub2","Sub4","Sub1","Sub5","Sub6","Sub3"],added:false},
+{_id:"Course3",courseName:"Electronics Engineering", periods:["Sub3","Sub6","Sub2","Sub1","Sub4","Sub5"],added:false},
+{_id:"Course4",courseName:"Mechanical Engineering", periods: ["Sub4","Sub1","Sub5","Sub6","Sub3","Sub2"],added:false},
+{_id:"Course5",courseName:"Civil Engineering", periods: ["Sub6","Sub5","Sub4","Sub3","Sub2","Sub1"],added:false},
+{_id:"Course6",courseName:"Chemical Engineering", periods: ["Sub5","Sub3","Sub6","Sub2","Sub1","Sub4"],added:false}])
+
+
+
+Add the below data to subjects:
+
+db.subjects.insertMany(
+[{_id:"Sub1",name:"English"},
+{_id:"Sub2",name:"Hindi"},
+{_id:"Sub3",name:"Math"},
+{_id:"Sub4",name:"Physics"},
+{_id:"Sub5",name:"Chemistry"},
+{_id:"Sub6",name:"Biology"}])
+
+
+install node version >=12 for running mongodb.test.js
+run npm install to install the dependencies
+
+Add class for students: using "http://localhost:8080/enroll/:studentId/:courseId"        ----> PUT method
+http://localhost:8080/enroll/S1/Course1
+http://localhost:8080/enroll/S2/Course2
+
+
+Assign Teacher for the class: using "http://localhost:8080/assign/:teacherId/:subjectId"  ----> PUT method
+http://localhost:8080/assign/T2/Sub2
+http://localhost:8080/assign/T1/Sub1
+
+
+List of classes for the day for a student : http://localhost:8080/student/:studentId
+http://localhost:8080/student/S1
+http://localhost:8080/student/S2
+
+List of classes for the day for a teacher: http://localhost:8080/teacher/:teacherId
+http://localhost:8080/teacher/T1
+http://localhost:8080/teacher/T2
+
+
+
+
+
+
+
+
+
+
+
+
+
