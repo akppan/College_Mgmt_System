@@ -29,7 +29,6 @@ app.get('/students', async function (req, res, next) {
 app.put('/enroll/:studentId/:courseId', async function(req,res,next){
     sId = await req.params.studentId;
     cId = await req.params.courseId;
-    // console.log(sId,cId);
     await add_class(sId,cId);
     res.send("Student with ID "+ sId +" has enrolled for course with Id "+cId);
 })
@@ -38,7 +37,6 @@ app.put('/enroll/:studentId/:courseId', async function(req,res,next){
 app.put('/assign/:teacherId/:subjectId', async function(req,res,next){
     tId = await req.params.teacherId;
     sId = await req.params.subjectId;
-    // console.log(sId,cId);
     await add_teacher(tId,sId);
     res.send("Teacher with ID "+ tId +" has been added for subject with Id "+sId);
 })
@@ -46,13 +44,27 @@ app.put('/assign/:teacherId/:subjectId', async function(req,res,next){
 
 app.get('/student/:studentId', async function(req,res,next){
     sId = await req.params.studentId;
-    // console.log(sId,cId);
     sch = await student_schedule(sId);
-    schedule = await JSON.stringify(sch);
-    res.send("Student with ID "+ sId +" has following schedule for the day: "+schedule);
+    if(typeof(sch)=="string"){
+        res.send(sch);
+    }
+    else{
+        schedule = await JSON.stringify(sch);
+        res.send(`Student with ID ${sId} has following schedule for the day: <h3>${schedule}</h3>`);
+    }
 })
 
-
+app.get('/teacher/:teacherId', async function(req,res,next){
+    tId = await req.params.teacherId;
+    sch = await teacher_schedule(tId);
+    if(typeof(sch)=="string"){
+        res.send(sch);
+    }
+    else{
+        schedule = await JSON.stringify(sch);
+        res.send(`Teacher with ID ${tId} has following schedule for the day: <h3>${schedule}</h3>`);
+    }
+})
 
 
 PORT = 8080;

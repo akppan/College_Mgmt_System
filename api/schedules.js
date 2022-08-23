@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+const { teacher } = require("./lists");
 
 async function student_schedule(studentId){
     const client = new MongoClient("mongodb://localhost:27017/");
@@ -36,16 +37,30 @@ async function teacher_schedule(teacherId){
         await client.connect();
         const database = await client.db('test');
         const coll = await database.collection('teachers');
-        const query = {};
-        const projection = {name:1,_id:0};
-        const cursor = await coll.find(query).project(projection);
-        teachers = await cursor.toArray();
-        return teachers;
+        const query = {_id:teacherId};
+        const cursor = await coll.find(query);
+        out = await cursor.toArray();
+        teacher1 = out[0]
+        if ("subject" in teacher1){
+            const subjectId = teacher1["subject"]
+            // var schedule = []
+            const coll1 = await database.collection('classes');
+            const cursor1 = await coll1.find().project({periods:1});
+            out1 = await cursor1.toArray();
+            indexes = []
+            schedule = new Array(6).fill("Rest Hour")
+            out1.forEach(function (item){
+                schedule[item["periods"].indexOf(subjectId)] = item["_id"];
+            })
+            return schedule;
+
+        }else{
+            return "The Teacher has not been assigned any Subject"
+        }
     }finally{
         await client.close();
     }
     
 };
 
-student_schedule("S2");
 module.exports = {student_schedule,teacher_schedule};
