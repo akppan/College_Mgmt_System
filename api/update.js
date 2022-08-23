@@ -32,4 +32,27 @@ async function add_class(studentId,courseId){
     
 };
 
-module.exports = {add_class};
+async function add_teacher(teacherId,subjectId){
+    const client = new MongoClient("mongodb://localhost:27017/");
+    try{
+        await client.connect();
+        const database = await client.db('test');
+        const coll = await database.collection('subjects');
+        // console.log(coll)
+        const query = {_id:subjectId};
+        const details = {teacher:teacherId};
+        await coll.updateOne(query,{$set:details});
+
+        const coll1 = await database.collection('teachers');
+        // console.log(coll)
+        const query1 = {_id:teacherId};
+        const details1 = {subject:subjectId};
+        await coll1.updateOne(query1,{$set:details1});
+        
+    }finally{
+        await client.close();
+    }
+    
+};
+
+module.exports = {add_class,add_teacher};

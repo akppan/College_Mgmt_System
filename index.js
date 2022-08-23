@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const {student,teacher} = require("./api/lists");
-const {add_class} = require("./api/update");
+const {add_class,add_teacher} = require("./api/update");
 
 const app = express();
 
@@ -34,7 +34,13 @@ app.put('/enroll/:studentId/:courseId', async function(req,res,next){
 })
 
 
-
+app.put('/assign/:teacherId/:subjectId', async function(req,res,next){
+    tId = await req.params.teacherId;
+    sId = await req.params.subjectId;
+    // console.log(sId,cId);
+    await add_teacher(tId,sId);
+    res.send("Teacher with ID "+ tId +" has been added for subject with Id "+sId);
+})
 
 
 
