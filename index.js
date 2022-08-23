@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const {student,teacher} = require("./api/lists");
 const {add_class,add_teacher} = require("./api/update");
+const {student_schedule,teacher_schedule} = require("./api/schedules");
 
 const app = express();
 
@@ -43,7 +44,13 @@ app.put('/assign/:teacherId/:subjectId', async function(req,res,next){
 })
 
 
-
+app.get('/student/:studentId', async function(req,res,next){
+    sId = await req.params.studentId;
+    // console.log(sId,cId);
+    sch = await student_schedule(sId);
+    schedule = await JSON.stringify(sch);
+    res.send("Student with ID "+ sId +" has following schedule for the day: "+schedule);
+})
 
 
 
